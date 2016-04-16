@@ -14,4 +14,4 @@ This repository demonstrates **software** and _formats_:
 
 ## Conclusion
 
-![](https://octodex.github.com/images/labtocat.png)
+![](https://s-media-cache-ak0.pinimg.com/736x/4a/d6/96/4ad6962a7f2e9ff545271031477c6331.jpg)
