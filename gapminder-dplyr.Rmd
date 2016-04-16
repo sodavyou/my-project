@@ -1,0 +1,91 @@
+---
+title: "gapminder analysis"
+author: "Sodavy Ou"
+date: "April 16, 2016"
+output: html_document
+---
+## Exploration
+
+# load dplyr
+```{r}
+# install.packages("dplyr") #only needs to be done once
+
+library(dplyr)
+```
+
+# load gapminder
+
+```{r pressure}
+# install.packages('gapminder')
+
+library(gapminder)
+str(gapminder)
+```
+
+# Exploration with gapminder
+```{r}
+filter(gapminder, lifeExp < 29) #filer to see which country has life
+filter(gapminder, country =="Rwanda")
+a = filter(gapminder, country %in% c("Rwanda", "Afghanistan"))
+#compare without dplyr
+gapminder[gapminder$lifeExp<29, ]
+
+#the pipe operator! %>% 
+#from magrittr package
+gapminder %>% head #the result of this looks like when you do head(gapminder), so you're getting the first 6 rows of this data
+
+gapminder %>% head(3) #this is the same as head(gapminder, 3)
+
+## subset wit the command select()
+select(gapminder,year, lifeExp) #subset the year and lifeExp column from the data
+
+gapminder %>% select(year, lifeExp) #this is the same as select(gapminder,year, lifeExp) 
+
+gapminder %>%  
+  select(year, lifeExp) %>% 
+  head(4) #take the gapminder data, then select on the year and lifeExp column, and then give me the first 4 rows
+
+#mean gdp of Cambodia
+gapminder %>% 
+  filter(country=="Cambodia") %>% 
+  select(country, year, pop, gdpPercap)
+
+
+gapminder %>% 
+  filter(country=="Cambodia") %>% 
+  select(-continent, -lifeExp) #to not select continent and lifeExp column
+
+
+#comparing the above command to the base R command (the above command is easier)
+gapminder[gapminder$country=="Cambodia",c("country","year","pop","gpdPercap")] #this is the same as gapminder %>% filter(country=="Cambodia") %>% select(-continent, -lifeExp)
+
+
+#continue with mutate
+
+gapminder %>% 
+  mutate(gdp=pop*gdpPercap) #mutate command is to add also column to the gapminder data
+
+#exercise 
+
+#add mutate to our previous analysis
+
+gapminder %>% 
+  filter(country=="Cambodia") %>% 
+  select(-continent,-lifeExp) %>% 
+  mutate(gdp=pop*gdpPercap) %>% 
+  group_by(country) %>% #group_by function do the same thing as the for loop command for cambodia
+  summarise(mean_gdp=mean(gdp)) %>% 
+  ungroup() #use ungroup if you group_by command earlier!!!!!!
+
+gapminder %>% #This calculate the mean gdp for all countries
+  select(-continent,-lifeExp) %>% 
+  mutate(gdp=pop*gdpPercap) %>% 
+  group_by(country) %>% #group_by function do the same thing as the for loop command for cambodia
+  summarise(mean_gdp=mean(gdp)) %>% 
+  ungroup()
+
+
+# %>% take whatever is on the left of the %>%  and passes it to whatever is on the right, as the first arguement.
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

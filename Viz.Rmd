@@ -1,0 +1,57 @@
+---
+title: "Viz"
+author: "Sodavy Ou"
+date: "April 16, 2016"
+output: html_document
+---
+
+# Scatterplot
+
+
+```{r load, results='hide', echo=TRUE,eval=TRUE}
+#will run it but not showing the result when knitted
+library(dplyr)
+library(ggplot2)
+library(gapminder)
+
+summary(gapminder)
+
+
+```
+
+```{r}
+# setup dataframe
+g = gapminder %>%
+  filter(year==2007) %>%   # most recent year 
+  mutate(pop_m = pop/1e6)  # population, millions
+
+# plot scatterplot of most recent year 
+s = ggplot(g, aes(x=gdpPercap, y=lifeExp)) + #the gdpPercap on the x axis and lifeExp on the y axis
+  geom_point() #this adds geometry points corelated to the data on the graph, w/o, the graph is blank
+# add aesthetic of size by population
+s = s + 
+  aes(size=pop_m)
+# add aesthetic of color by continent
+s = s + 
+  aes(color=continent)
+s
+# add title, update axes labels
+s = s + 
+  ggtitle('Health & Wealth of Nations for 2007') +
+  xlab('GDP per capita ($/year)') +
+  ylab('Life expectancy (years)')
+s
+# label legend
+s = s + 
+  scale_colour_discrete(name='Continent') +
+  scale_size_continuous(name='Population (M)')
+s
+
+```
+
+
+```{r}
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
