@@ -13,13 +13,8 @@ This repository demonstrates **software** and _formats_:
 1. _Rmarkdown_
 
 
-SCALLOP_MATURITY_CODE	AGE_STR_COLLECTED	SCALLOP_AGE
-0	0	NA & one 9
-1	1	2 to 8
-2	1	3 to 22
-3	1	6 to 16
-5	1	4 to 22
-9	0	NA
+![image](https://cloud.githubusercontent.com/assets/17073491/14727603/95fe4af0-07e1-11e6-831b-9f8d76dde376.png)
+
 
 ## Conclusion
 
